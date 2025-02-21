@@ -6,16 +6,18 @@ const cors = require("cors");
 
 const mongoose = require("mongoose");
 
-const PORT = process.env.PORT || 3000;
+require("dotenv").config();
+
+const PORT = process.env.PORT || 4000;
 
 const router = require("./Routes/todo");
+const errorHandler = require("./middleware/errHandler");
 
 app.use(cors());
 
 mongoose
   .connect(
-    process.env.Mongodb_URI ||
-      "mongodb+srv://prashrayapanta33:75LQXbgv0TTSEY@todoapi.zguih.mongodb.net/"
+    "mongodb+srv://prashrayapanta33:75LQXbgv0TTSEY@todoapi.zguih.mongodb.net/"
   )
   .then(() => console.log("DB connected succesfully"))
   .catch((error) => console.log(error));
@@ -27,6 +29,7 @@ app.use(express.json());
 
 app.use("/", router);
 
+app.use(errorHandler);
 // FhTIbdCRtR8cPE1w
 
 app.listen(PORT, () => {

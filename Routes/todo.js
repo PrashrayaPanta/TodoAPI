@@ -3,7 +3,9 @@ const todoCtrl = require("../controllers/todo");
 
 const router = express.Router();
 
-router.post("/api/todo", todoCtrl.AddTodoCtrl);
+const upload = require("../config/multer");
+
+router.post("/api/todo", upload.array("images", 3), todoCtrl.AddTodoCtrl);
 
 router.patch("/api/todo/:id", todoCtrl.UpdateTodoCtrl);
 
